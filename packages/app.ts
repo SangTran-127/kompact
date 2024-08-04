@@ -37,7 +37,7 @@ export class KompactApp {
     controllers: Class[]
     authenticator?: Middleware
   }) {
-    controllers.forEach(Controller => {
+    controllers?.forEach(Controller => {
       const instance = new Controller()
       const path: string = Reflect.getMetadata(
         CONTROLLER_PATH_METADATA,
@@ -61,7 +61,7 @@ export class KompactApp {
         }
         router.use(authenticator)
       }
-      routes.forEach(route => {
+      routes?.forEach(route => {
         if (route.auth && authenticator) {
           router[route.method](
             route.path,

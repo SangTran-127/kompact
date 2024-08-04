@@ -20,13 +20,16 @@ export const extractReqParams = (
     prototype,
     route.methodName,
   )
-  paramMetadata.forEach(({ index, name }: { index: number; name: string }) => {
+
+  paramMetadata?.forEach(({ index, name }: { index: number; name: string }) => {
     // incase if name is undefined = @Param() params: object
     args[index] = req.params[name] || req.params
   })
-  bodyMetadata.forEach(({ index, field }: { index: number; field: string }) => {
-    // incase if name is undefined = @Body() body: object
-    args[index] = req.body[field] || req.body
-  })
+  bodyMetadata?.forEach(
+    ({ index, field }: { index: number; field: string }) => {
+      // incase if name is undefined = @Body() body: object
+      args[index] = req.body[field] || req.body
+    },
+  )
   instanceController[route.action.name](...args, res)
 }

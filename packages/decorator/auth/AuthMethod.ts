@@ -14,7 +14,7 @@ export function Auth(
 
     // eslint-disable-next-line prefer-rest-params
     const args = Array.from(arguments)
-    currentUserIndexes.forEach(index => {
+    currentUserIndexes?.forEach(index => {
       // @ts-expect-error: This assigned user when user is auth
       args[index] = req.user
     })
