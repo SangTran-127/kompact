@@ -6,7 +6,7 @@ export function Body(fieldName?: string) {
     propertyKey: string | symbol,
     indexParameter: number,
   ) => {
-    if (Reflect.hasMetadata(BODY_KEY, target, propertyKey)) {
+    if (!Reflect.hasMetadata(BODY_KEY, target, propertyKey)) {
       Reflect.defineMetadata(BODY_KEY, [], target, propertyKey)
     }
     const bodies = Reflect.getMetadata(BODY_KEY, target, propertyKey)
