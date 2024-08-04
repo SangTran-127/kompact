@@ -1,7 +1,7 @@
 {
   "name": "@sangtrandev/kompact",
   "type": "module",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "license": "MIT",
   "keywords": [
     "express",
