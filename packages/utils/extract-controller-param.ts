@@ -31,5 +31,10 @@ export const extractReqParams = (
       args[index] = req.body[field] || req.body
     },
   )
-  instanceController[route.action.name](...args, res)
+
+  if (Array.isArray(args) && args.length > 0) {
+    instanceController[route.action.name](...args, res)
+  } else {
+    instanceController[route.action.name](req, res)
+  }
 }

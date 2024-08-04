@@ -74,6 +74,7 @@ export class KompactApp {
           router[route.method](
             route.path,
             (req: Request, res: Response, next: NextFunction) => {
+              console.log(`response to extract:: `, res)
               extractReqParams(instance, route, req, res)
             },
           )
@@ -133,9 +134,10 @@ export class KompactApp {
 
     this.app.use(
       (error: HttpError, req: Request, res: Response, next: NextFunction) => {
+        const errorStatus = error.status || 500
         // Add log for error
         const errorMessage = `Error ${
-          error.status
+          errorStatus
         } - ${Date.now()}ms - Response: ${JSON.stringify(error)}`
 
         logger.error(errorMessage, {
@@ -143,10 +145,9 @@ export class KompactApp {
           requestId: req.requestId ?? uuidv4(),
           metadata: { message: error.message },
         })
-
-        res.status(error.status).json({
+        res.status(errorStatus).json({
           status: 'error',
-          code: error.status,
+          code: errorStatus,
           stack: error.stack, // for development env
           message: error.message || 'Internal Server Error',
         })
