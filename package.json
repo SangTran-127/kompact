@@ -1,15 +1,47 @@
 {
   "name": "kompact",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
-  "scripts": {},
-  "private": true,
-  "dependencies": {},
+  "private": false,
+  "scripts": {
+    "build:docs": "cd docs/docusaurus/my-docs && npm run build",
+    "serve:docs": "cd docs/docusaurus/my-docs && npm run serve"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "devDependencies": {
+    "@nx/eslint": "19.6.4",
+    "@nx/eslint-plugin": "19.6.4",
+    "@nx/jest": "19.6.4",
     "@nx/js": "19.6.4",
-    "nx": "19.6.4"
+    "@nx/rollup": "19.6.4",
+    "@swc-node/register": "~1.9.1",
+    "@swc/cli": "~0.3.12",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
+    "@swc/jest": "~0.2.36",
+    "@types/jest": "^29.5.12",
+    "@types/node": "18.16.9",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "~8.57.0",
+    "eslint-config-prettier": "^9.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "nx": "19.6.4",
+    "prettier": "^2.6.2",
+    "rollup": "^4.14.0",
+    "swc-loader": "0.1.15",
+    "ts-jest": "^29.1.0",
+    "ts-node": "10.9.1",
+    "typescript": "~5.5.2",
+    "verdaccio": "^5.0.4"
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }
