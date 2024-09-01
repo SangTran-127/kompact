@@ -1,11 +1,15 @@
 import type {
+  NextFunction as ExpressNextFunction,
   Request as ExpressRequest,
   Response as ExpressResponse,
-  NextFunction as ExpressNextFunction,
 } from 'express';
 
-export type Request = ExpressRequest;
+export type Request = ExpressRequest & {
+  requestId?: string | string[];
+  user?: object;
+};
 export type Response = ExpressResponse;
+
 export type NextFunction = ExpressNextFunction;
 
 export type Middleware = (
@@ -15,3 +19,7 @@ export type Middleware = (
 ) => void;
 
 export type Class<T = unknown> = new (...args: unknown[]) => T;
+
+export type ControllerInstance = Class<
+  Record<string, (...args: unknown[]) => void>
+>;

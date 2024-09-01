@@ -1,2 +1,2 @@
-export * from './app'
-export * from './decorator'
+export * from './app';
+export * from './decorator';

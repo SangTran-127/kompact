@@ -1,9 +1,19 @@
 {
   "extends": "./tsconfig.json",
+  
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": "./",
+    "paths": {
+      "@constant": ["./src/constant"],
+      "@core": ["./src/core"],
+      "@decorator": ["./src/decorator"],
+      "@interface": ["./src/interface"],
+      "@logger": ["./src/logger"],
+      "@utils": ["./src/utils"]
+  },
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]

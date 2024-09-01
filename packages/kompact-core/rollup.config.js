@@ -1,4 +1,6 @@
 const { withNx } = require('@nx/rollup/with-nx');
+const alias = require('@rollup/plugin-alias');
+const terser = require('@rollup/plugin-terser');
 
 module.exports = withNx(
   {
@@ -13,5 +15,18 @@ module.exports = withNx(
     // Provide additional rollup configuration here. See: https://rollupjs.org/configuration-options
     // e.g.
     // output: { sourcemap: true },
+    plugins: [
+      terser(),
+      alias({
+        entries: [
+          { find: '@constant', replacement: './src/constant' },
+          { find: '@core', replacement: './src/core' },
+          { find: '@decorator', replacement: './src/decorator' },
+          { find: '@interface', replacement: './src/interface' },
+          { find: '@logger', replacement: './src/logger' },
+          { find: '@utils', replacement: './src/utils' },
+        ],
+      }),
+    ],
   }
 );

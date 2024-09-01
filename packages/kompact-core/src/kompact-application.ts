@@ -1,34 +1,33 @@
-import express, { json, Router, type NextFunction } from 'express';
-import { v4 as uuidv4 } from 'uuid';
-import { HttpError } from './core/http-error';
+import { HttpError } from '@core';
 import {
   CONTROLLER_AUTH_METADATA,
   CONTROLLER_PATH_METADATA,
   ROUTES_METHOD_METADATA,
   Singleton,
-} from './decorator';
+} from '@decorator';
 import type {
-  Class,
+  ControllerInstance,
   Middleware,
+  NextFunction,
   Request,
   Response,
   RouteMethod,
-} from './interface';
-import { logger } from './logger';
-import { extractReqParams } from './utils/extract-controller-param';
+} from '@interface';
+import { logger } from '@logger';
+import { extractReqParams } from '@utils';
+import express, { json, Router } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 @Singleton()
 export class KompactApp {
   private readonly app = express();
   private readonly router = new Map<string, Router>();
-  // private auth: Middleware;
-  // private readonly controllers: any[];
   private readonly middlewares: Middleware[] = [];
   constructor({
     controllers,
     authenticator,
   }: {
-    controllers: Class[];
+    controllers: ControllerInstance[];
     authenticator?: Middleware;
   }) {
     controllers?.forEach((Controller) => {
@@ -97,7 +96,7 @@ export class KompactApp {
     });
 
     // logging
-    this.app.use((req, _, next) => {
+    this.app.use((req: Request, _, next) => {
       const requestId = req.headers['x-request-id'];
       req.requestId = requestId ?? uuidv4();
       logger.log(`Input params type ${req.method}`, {
