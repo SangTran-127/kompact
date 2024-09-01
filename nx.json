@@ -1,38 +1,18 @@
 {
-  "pluginsConfig": {
-    "@nx/js": {
-      "analyzeSourceFiles": false
-    }
-  },
+  "pluginsConfig": { "@nx/js": { "analyzeSourceFiles": false } },
   "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "nxCloudAccessToken": "MDFlNWExYTQtMzgzNy00ZWJmLWE3YmYtMjhlMzhjZmI4ZmUzfHJlYWQtd3JpdGU=",
+  "nxCloudAccessToken": "NzM1OTg4YjktNDZhYS00YWY4LTljZmQtNTA3ZWM4MjQ2ZWYyfHJlYWQtd3JpdGU=",
   "namedInputs": {
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "plugins": [
     {
       "plugin": "@nx/rollup/plugin",
-      "options": {
-        "buildTargetName": "build"
-      }
+      "options": { "buildTargetName": "build" }
     },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      }
-    }
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
+    { "plugin": "@nx/jest/plugin", "options": { "targetName": "test" } }
   ],
-  "release": {
-    "version": {
-      "preVersionCommand": "yarn nx run-many -t build"
-    }
-  }
+  "release": { "version": { "preVersionCommand": "yarn nx run-many -t build" } }
 }
