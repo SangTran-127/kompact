@@ -1,14 +1,12 @@
-import compression from 'compression';
-import express, { type NextFunction, type Router } from 'express';
-import helmet from 'helmet';
+import express, { json, Router, type NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import { HttpError } from './core/http-error';
 import {
   CONTROLLER_AUTH_METADATA,
   CONTROLLER_PATH_METADATA,
   ROUTES_METHOD_METADATA,
   Singleton,
 } from './decorator';
-import { HttpError } from './error';
 import type {
   Class,
   Middleware,
@@ -47,7 +45,7 @@ export class KompactApp {
         CONTROLLER_AUTH_METADATA,
         Controller
       );
-      const router = express.Router();
+      const router = Router();
       if (auth) {
         if (!authenticator) {
           // TODO: will custom this problem later
@@ -93,10 +91,7 @@ export class KompactApp {
 
   public start(port: number, callback?: () => void): void {
     // init some utils middleware
-    this.app.use(express.json()); // json body parser
-    // will be custom these param, don't hard code anymore
-    this.app.use(helmet()); // help secure Express apps by setting HTTP response headers.
-    this.app.use(compression()); // compress file
+    this.app.use(json()); // json body parser
     this.middlewares.forEach((middleware) => {
       this.app.use(middleware);
     });

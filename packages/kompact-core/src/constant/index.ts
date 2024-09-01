@@ -38,4 +38,4 @@ export const ReasonStatusCode: { [key in StatusCode]: string } = {
   [StatusCode.BAD_GATEWAY]: 'Bad Gateway',
   [StatusCode.SERVICE_UNAVAILABLE]: 'Service Unavailable',
   [StatusCode.GATEWAY_TIMEOUT]: 'Gateway Timeout',
-}
+};

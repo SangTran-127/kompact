@@ -1,33 +1,33 @@
 import {
   createLogger,
   format,
-  type Logger as WinstonLogger,
   transports,
-} from 'winston'
-import 'winston-daily-rotate-file'
-import { Singleton } from '../decorator'
+  type Logger as WinstonLogger,
+} from 'winston';
+import 'winston-daily-rotate-file';
+import { Singleton } from '../decorator';
 
 export type LogParams = {
-  context: string
-  requestId: string | string[]
-  metadata: any
-}
+  context: string;
+  requestId: string | string[];
+  metadata: unknown;
+};
 @Singleton()
 class Logger {
-  private readonly logger: WinstonLogger
+  private readonly logger: WinstonLogger;
 
   constructor() {
     const formatPrint = format.printf(
       ({ level, message, context, requestId, timestamp, metadata }) => {
         return `${timestamp}::${level}::${context}::${requestId}::${message}::${JSON.stringify(
-          metadata,
-        )}`
-      },
-    )
+          metadata
+        )}`;
+      }
+    );
     this.logger = createLogger({
       level: 'debug',
       format: format.combine(
-        format.timestamp({ format: 'DD-MM-YY HH:mm::ss' }),
+        format.timestamp({ format: 'DD-MM-YY HH:mm::ss' })
       ),
       transports: [
         new transports.DailyRotateFile({
@@ -39,7 +39,7 @@ class Logger {
           maxFiles: '14d',
           format: format.combine(
             format.timestamp({ format: 'DD-MM-YY HH:mm::ss' }),
-            formatPrint,
+            formatPrint
           ),
           level: 'info',
         }),
@@ -52,12 +52,12 @@ class Logger {
           maxFiles: '14d',
           format: format.combine(
             format.timestamp({ format: 'DD-MM-YY HH:mm::ss' }),
-            formatPrint,
+            formatPrint
           ),
           level: 'error',
         }),
       ],
-    })
+    });
   }
 
   private formatParams({ requestId, context, metadata }: LogParams): any {
@@ -66,25 +66,25 @@ class Logger {
       requestId,
       context,
       metadata,
-    }
+    };
   }
 
   log(message: string, params: LogParams): void {
-    const paramLog = this.formatParams(params)
+    const paramLog = this.formatParams(params);
     const logObject = {
       message,
       ...paramLog,
-    }
-    this.logger.info(logObject)
+    };
+    this.logger.info(logObject);
   }
 
   error(message: string, params: LogParams): void {
-    const paramLog = this.formatParams(params)
+    const paramLog = this.formatParams(params);
     const logObject = {
       message,
       ...paramLog,
-    }
-    this.logger.error(logObject)
+    };
+    this.logger.error(logObject);
   }
 }
-export const logger = new Logger()
+export const logger = new Logger();

@@ -33,7 +33,7 @@ export class SuccessResponse {
     this.metadata = metadata;
   }
 
-  send(res: Response, header: Record<string, string> = {}): any {
-    return res.status(this.statusCode).json(this);
+  send(res: Response, header: Record<string, string> = {}): Response {
+    return res.header(header).status(this.statusCode).json(this);
   }
 }
