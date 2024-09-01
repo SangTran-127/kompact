@@ -1,4 +1,4 @@
-import { KompactApp } from 'kompact';
+import { KompactApp } from '@kompact/core';
 import { MainController, BookController } from './controllers';
 
 const PORT = 3002;

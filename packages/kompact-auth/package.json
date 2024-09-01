@@ -1,6 +1,7 @@
 {
   "name": "@kompact/auth",
   "version": "0.0.1",
+  "private": "false",
   "dependencies": {
     "jsonwebtoken": "^9.0.2"
   },

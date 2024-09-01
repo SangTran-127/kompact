@@ -9,29 +9,29 @@ import {
   Request,
   Response,
   SuccessResponse,
-} from 'kompact'
-import { bookService } from '../services/book.service'
-import { CreateBookDto, UpdateBookDto } from '../dto/book.dto'
+} from '@kompact/core';
+import { bookService } from '../services/book.service';
+import { CreateBookDto, UpdateBookDto } from '../dto/book.dto';
 
 @Controller('book')
 export class BookController {
   @Get()
   getAllBook(_: Request, res: Response) {
-    console.log(bookService.getAllBook())
+    console.log(bookService.getAllBook());
     new SuccessResponse({
       metadata: [],
       message: 'Get all book successfully',
       statusCode: 200,
-    }).send(res)
+    }).send(res);
   }
 
   @Post()
   addBook(@Body() addBookDto: CreateBookDto, res: Response) {
-    console.log(`add book call`)
+    console.log(`add book call`);
     new SuccessResponse({
       metadata: bookService.createBook(addBookDto),
       message: 'Add book successfully',
-    }).send(res)
+    }).send(res);
   }
 
   @Get('/:id')
@@ -39,19 +39,19 @@ export class BookController {
     new SuccessResponse({
       metadata: bookService.findOne(Number(bookId)),
       message: 'Get book by id successfully',
-    }).send(res)
+    }).send(res);
   }
 
   @Patch('/:id')
   updateBook(
     @Param('id') bookId: string,
     @Body() updateBookDto: UpdateBookDto,
-    res: Response,
+    res: Response
   ) {
     new SuccessResponse({
       metadata: bookService.update(Number(bookId), updateBookDto),
       message: 'Update book by id successfully',
-    }).send(res)
+    }).send(res);
   }
 
   @Delete('/:id')
@@ -59,6 +59,6 @@ export class BookController {
     new SuccessResponse({
       metadata: bookService.remove(Number(bookId)),
       message: 'Update book by id successfully',
-    }).send(res)
+    }).send(res);
   }
 }

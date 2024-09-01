@@ -1,17 +1,17 @@
-import { PartialType } from 'kompact'
+import { PartialType } from '@kompact/core';
 
 export type Book = {
-  id: number
-  title: string
-  author: string
-  publishedYear: number
-}
+  id: number;
+  title: string;
+  author: string;
+  publishedYear: number;
+};
 
 export class CreateBookDto {
-  id: number
-  title: string
-  author: string
-  publishedYear: number
+  id: number;
+  title: string;
+  author: string;
+  publishedYear: number;
 }
 
 export class UpdateBookDto extends PartialType(CreateBookDto) {}

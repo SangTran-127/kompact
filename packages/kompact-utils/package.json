@@ -1,6 +1,7 @@
 {
   "name": "@kompact/utils",
   "version": "0.0.1",
+  "private": "false",
   "dependencies": {},
   "main": "./index.cjs",
   "module": "./index.js"

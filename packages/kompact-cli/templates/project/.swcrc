@@ -7,7 +7,6 @@
       "decorators": true
     },
     "baseUrl": "./"
-    // Currently not support @alias because of swc don't add .js 
   },
   "module": {
     "type": "es6",

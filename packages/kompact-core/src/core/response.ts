@@ -14,13 +14,13 @@ export type SuccessResponseParams = {
   message?: string;
   statusCode?: StatusCode;
   reasonStatusCode?: typeof ReasonStatusCode;
-  metadata?: Record<string, unknown>;
+  metadata?: object;
 };
 
 export class SuccessResponse {
   message: string;
   statusCode: StatusCode;
-  metadata: Record<string, unknown>;
+  metadata: object;
 
   constructor({
     message,

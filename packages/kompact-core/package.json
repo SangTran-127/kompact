@@ -1,6 +1,10 @@
 {
   "name": "@kompact/core",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "reflect-metadata": "^0.2.2",
