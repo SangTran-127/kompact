@@ -1,89 +1,105 @@
 # Kompact
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Kompact is a TypeScript backend library for Express that leverages metadata programming using decorators. Inspired by NestJS, it provides a clean and declarative way to define routes, middleware, and request handlers, without using an Inversion of Control (IoC) container.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Features
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/npm-workspaces-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- **Decorators for Routes**: Define your Express routes using decorators.
+- **Middleware Support**: Easily attach middleware to your routes.
+- **Request Handlers**: Simplify the process of handling requests and responses.
+- **Metadata Programming**: Utilize metadata to manage route configurations and middleware.
 
-## Finish your CI setup
+## Installation
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/XUwH4BtUM9)
+You can install Kompact via cli:
 
-
-## Run tasks
-
-To run tasks with Nx use:
-
-```sh
-npx nx <target> <project-name>
+```bash
+npm install -g kompact-cli
+kompact create <project-name>
 ```
 
-For example:
+## Usage
 
-```sh
-npx nx build myproject
+Here's an example of how to create a simple Express server using Kompact.
+
+1. Setting Up Your Project
+
+First, ensure your tsconfig.json has the following settings enabled:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+2. Example 
+   
+Controller 
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```ts
+import {
+  Auth,
+  Controller,
+  CurrentUser,
+  Get,
+  Post,
+  Request,
+  Response,
+} from "kompact";
 
-## Versioning and releasing
+@Controller("cat")
+export class CatController {
+  @Get()
+  getCat(req: Request, res: Response) {
+    res.send("hello, I sent you a cat");
+  }
 
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](hhttps://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
-```
-
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
-
-```sh
-# Genenerate an app
-npx nx g @nx/react:app demo
-
-# Generate a library
-npx nx g @nx/react:lib some-lib
+  @Auth
+  @Post()
+  addCat(req: Request, res: Response, @CurrentUser user: any) {
+    console.log(user);
+  }
+}
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+In app.ts
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```ts
+import { KompactApp } from "kompact";
+import { CatController } from "@controllers/cat.controller";
 
+const app = new KompactApp({
+  controllers: [CatController],
+  authenticator: (req, res, next) => {
+    // const accessToken = req.headers["authorization"];
+    // if (!accessToken) res.status(401);
+    req.user = {
+      name: "Sang tran",
+    };
+    return next();
+  },
+});
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+app.start(3001, () => {
+  console.log(`running at ${3001}`);
+});
+```
 
-## Install Nx Console
+Sorry 😢😢😢😢 I will update the docs later 🙏🙏🙏🙏
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+## Contributing
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Useful links
+## License
 
-Learn more:
+This project is licensed under the MIT License.
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/npm-workspaces-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+This `README.md` provides a clear overview of Kompact, including installation instructions, usage examples, and information on how to set up and run the project.

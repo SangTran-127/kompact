@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@*": ["src/*"]
+    },
+    "strict": true,
+    "declaration": true,
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "example"
+  ]
+}

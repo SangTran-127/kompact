@@ -2,7 +2,7 @@
   "name": "kompact",
   "version": "0.0.1",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
     "build:docs": "cd docs/docusaurus/my-docs && npm run build",
     "serve:docs": "cd docs/docusaurus/my-docs && npm run serve"

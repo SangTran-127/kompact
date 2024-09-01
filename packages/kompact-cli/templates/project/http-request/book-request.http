@@ -1,0 +1,34 @@
+
+
+### Get all books
+GET http://localhost:3002/book
+Content-Type: application/json
+
+### Add a new book
+POST http://localhost:3002/book
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "publishedYear": 1925
+}
+
+### Get a book by ID
+GET http://localhost:3002/book/1
+Content-Type: application/json
+
+### Update a book by ID
+PATCH http://localhost:3002/book/1
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby Updated",
+  "author": "F. Scott Fitzgerald",
+  "publishedYear": 1925
+}
+
+### Delete a book by ID
+DELETE http://localhost:3002/book/1
+Content-Type: application/json

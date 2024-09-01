@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "sourceMaps": true,
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true
+    },
+    "baseUrl": "./"
+    // Currently not support @alias because of swc don't add .js 
+  },
+  "module": {
+    "type": "es6",
+    "resolveFully": true
+  },
+  "minify": false
+}
