@@ -18,7 +18,8 @@
       "@kompact/auth": ["packages/kompact-auth/src/index.ts"],
       "@kompact/cli": ["packages/kompact-cli/src/index.ts"],
       "@kompact/core": ["packages/kompact-core/src/index.ts"],
-      "@kompact/utils": ["packages/kompact-utils/src/index.ts"]
+      "@kompact/utils": ["packages/kompact-utils/src/index.ts"],
+      "@kompact/validator": ["packages/kompact-validator/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

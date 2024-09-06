@@ -1,3 +1,5 @@
+import express, { json, Router } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import { HttpError } from '@core';
 import {
   CONTROLLER_AUTH_METADATA,
@@ -15,9 +17,6 @@ import type {
 } from '@interface';
 import { logger } from '@logger';
 import { extractReqParams } from '@utils';
-import express, { json, Router } from 'express';
-import { v4 as uuidv4 } from 'uuid';
-
 @Singleton()
 export class KompactApp {
   private readonly app = express();
@@ -64,12 +63,9 @@ export class KompactApp {
             }
           );
         } else {
-          router[route.method](
-            route.path,
-            (req: Request, res: Response, _: NextFunction) => {
-              extractReqParams(instance, route, req, res);
-            }
-          );
+          router[route.method](route.path, (req: Request, res: Response) => {
+            extractReqParams(instance, route, req, res);
+          });
         }
       });
       this.router.set(path, router);
@@ -117,28 +113,26 @@ export class KompactApp {
       next(error);
     });
 
-    this.app.use(
-      (error: HttpError, req: Request, res: Response, _: NextFunction) => {
-        const errorStatus = error.status || 500;
-        // Add log for error
-        const errorMessage = `Error ${errorStatus} - ${Date.now()}ms - Response: ${JSON.stringify(
-          error
-        )}`;
+    this.app.use((error: HttpError, req: Request, res: Response) => {
+      const errorStatus = error.status || 500;
+      // Add log for error
+      const errorMessage = `Error ${errorStatus} - ${Date.now()}ms - Response: ${JSON.stringify(
+        error
+      )}`;
 
-        logger.error(errorMessage, {
-          context: req.path,
-          requestId: req.requestId ?? uuidv4(),
-          metadata: { message: error.message },
-        });
+      logger.error(errorMessage, {
+        context: req.path,
+        requestId: req.requestId ?? uuidv4(),
+        metadata: { message: error.message },
+      });
 
-        res.status(errorStatus).json({
-          status: 'error',
-          code: errorStatus,
-          stack: error.stack, // for development env
-          message: error.message || 'Internal Server Error',
-        });
-      }
-    );
+      res.status(errorStatus).json({
+        status: 'error',
+        code: errorStatus,
+        stack: error.stack, // for development env
+        message: error.message || 'Internal Server Error',
+      });
+    });
     this.app.listen(port, callback);
   }
 

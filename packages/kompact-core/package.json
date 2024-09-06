@@ -5,6 +5,13 @@
   "publishConfig": {
     "access": "public"
   },
+  "license": "MIT",
+  "keywords": [
+    "express",
+    "backend",
+    "typescript"
+  ],
+  "author": "tranquangsang12.7@gmail.com",
   "dependencies": {
     "express": "^4.19.2",
     "reflect-metadata": "^0.2.2",
