@@ -1,10 +1,10 @@
-import { NumberOptions } from "..";
+import { NumberOptions } from '..';
 
 export function validateNumber(
   num: unknown,
   options?: NumberOptions
 ): { error?: Error; valid: boolean } {
-  if (typeof num !== "number") {
+  if (typeof num !== 'number') {
     return {
       error: new Error(`Type error: ${num} should be a number`),
       valid: false,

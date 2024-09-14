@@ -10,6 +10,7 @@
     "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "noImplicitAny": true
   },
   "files": [],
   "include": [],

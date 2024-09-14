@@ -1,6 +1,6 @@
-import { Property } from "../transform";
+import { Property } from '../transform';
 
-export const REQUIRED_KEY = Symbol("REQUIRED");
+export const REQUIRED_KEY = Symbol('REQUIRED');
 
 export function Required(target: object, propertyKey: string) {
   const metadata: string[] =

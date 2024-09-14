@@ -1,11 +1,11 @@
-import { StringOptions, ValidateReturn } from "..";
-import { pattern as CONST_PATTERN } from "../../constant/regex";
+import { StringOptions, ValidateReturn } from '..';
+import { pattern as CONST_PATTERN } from '../../constant/regex';
 
 export function validateString(
   str: unknown,
   options?: StringOptions
 ): ValidateReturn {
-  if (typeof str !== "string") {
+  if (typeof str !== 'string') {
     return {
       error: new Error(`Type error: ${str} should be a string`),
       valid: false,

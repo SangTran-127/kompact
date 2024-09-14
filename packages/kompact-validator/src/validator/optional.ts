@@ -1,6 +1,6 @@
-import { Property } from "../transform";
+import { Property } from '../transform';
 
-export const OPTIONAL_KEY = Symbol("OPTIONAL");
+export const OPTIONAL_KEY = Symbol('OPTIONAL');
 
 export function Optional(target: object, propertyKey: string) {
   const metadata: string[] =

@@ -1,4 +1,4 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 import {
   Options,
   VALIDATOR_KEY,
@@ -7,12 +7,12 @@ import {
   validateDate,
   validateNumber,
   validateString,
-} from "./validator";
+} from './validator';
 
 export function validate<T extends object = object>(obj: T) {
-  for (let [property, value] of Object.entries(obj)) {
+  for (const [property, value] of Object.entries(obj)) {
     // Skipping undefined. The transform also handle Optional
-    if (typeof value === "undefined") {
+    if (typeof value === 'undefined') {
       continue;
     }
     const metadata: ValidatorMetadata[] = Reflect.getMetadata(
@@ -23,10 +23,9 @@ export function validate<T extends object = object>(obj: T) {
     // Currently the first
     const { key, options } = metadata[0];
     const { error, valid } = v[key as ValidatorType](value, options);
-    return {
-      error,
-      valid,
-    };
+    if (error || !valid) {
+      throw error;
+    }
   }
 }
 

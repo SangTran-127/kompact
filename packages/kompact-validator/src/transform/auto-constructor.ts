@@ -1,7 +1,7 @@
-import { PROPERTY_KEY } from ".";
-import { REQUIRED_KEY } from "../validator";
+import { PROPERTY_KEY } from '.';
+import { REQUIRED_KEY } from '../validator';
 
-export function AutoConstructor<T extends { new (...args: any[]): {} }>(
+export function AutoConstructor<T extends { new (...args: any[]): object }>(
   constructor: T
 ) {
   const propertyNames: string[] =

@@ -1,16 +1,16 @@
-import { NumberOptions, VALIDATOR_KEY, ValidatorMetadata } from "..";
-import { Property } from "../../transform";
+import { NumberOptions, VALIDATOR_KEY, ValidatorMetadata } from '..';
+import { Property } from '../../transform';
 
 export function Number(options?: NumberOptions) {
   return (target: object, propertyKey: string) => {
-    const metadata: ValidatorMetadata<"number">[] =
+    const metadata: ValidatorMetadata<'number'>[] =
       Reflect.getOwnMetadata(VALIDATOR_KEY, target, propertyKey) || [];
 
     if (!metadata.find((m) => m.propertyKey === propertyKey)) {
       metadata.push({
-        key: "number",
+        key: 'number',
         propertyKey,
-        dataType: "number",
+        dataType: 'number',
         options,
       });
       Reflect.defineMetadata(VALIDATOR_KEY, metadata, target, propertyKey);

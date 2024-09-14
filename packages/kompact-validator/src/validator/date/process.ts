@@ -1,10 +1,10 @@
-import { DateOptions } from "..";
+import { DateOptions } from '..';
 
 export function validateDate(
   date: unknown,
   options?: DateOptions
 ): { error?: Error; valid: boolean } {
-  if (!(typeof date === "object" && date instanceof Date)) {
+  if (!(typeof date === 'object' && date instanceof Date)) {
     return {
       error: new Error(`Type error: ${date} should be a number`),
       valid: false,

@@ -1,2 +1,2 @@
-export * from "./number";
-export * from "./process";
+export * from './number';
+export * from './process';
