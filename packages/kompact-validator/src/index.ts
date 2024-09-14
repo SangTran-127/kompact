@@ -1,14 +1,49 @@
-import 'reflect-metadata';
-import { IsNotEmptyKey, IsNotEmpty } from './decorator/common/is-not-empty';
+import "reflect-metadata";
+import {
+  Options,
+  VALIDATOR_KEY,
+  ValidatorMetadata,
+  ValidatorType,
+  validateDate,
+  validateNumber,
+  validateString,
+} from "./validator";
 
-class User {
-  @IsNotEmpty()
-  name: string;
-  constructor(name: string) {
-    this.name = name;
+export function validate<T extends object = object>(obj: T) {
+  for (let [property, value] of Object.entries(obj)) {
+    // Skipping undefined. The transform also handle Optional
+    if (typeof value === "undefined") {
+      continue;
+    }
+    const metadata: ValidatorMetadata[] = Reflect.getMetadata(
+      VALIDATOR_KEY,
+      obj,
+      property
+    );
+    // Currently the first
+    const { key, options } = metadata[0];
+    const { error, valid } = v[key as ValidatorType](value, options);
+    return {
+      error,
+      valid,
+    };
   }
 }
-const u = new User('sang');
-// function validator() {}
 
-// console.log(Reflect.getMetadata(IsNotEmptyKey, user));
+const v: {
+  [key in ValidatorType]: (
+    arg: unknown,
+    options: Options[key]
+  ) => { error?: Error; valid: boolean };
+} = {
+  string: validateString,
+  number: validateNumber,
+  date: validateDate,
+};
+
+export function transform<T extends { new (...args: any[]): InstanceType<T> }>(
+  instance: object,
+  Class: T
+): InstanceType<T> {
+  return new Class(instance);
+}
