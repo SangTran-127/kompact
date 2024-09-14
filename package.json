@@ -11,7 +11,6 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@nrwl/nx-cloud": "^19.1.0",
     "@nx/eslint": "19.6.4",
     "@nx/eslint-plugin": "19.6.4",
     "@nx/jest": "19.6.4",
