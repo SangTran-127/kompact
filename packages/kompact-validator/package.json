@@ -5,5 +5,6 @@
     "reflect-metadata": "^0.2.2"
   },
   "main": "./index.cjs",
-  "module": "./index.js"
+  "module": "./index.js",
+  "devDependencies": {}
 }
